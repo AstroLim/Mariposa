@@ -1,0 +1,52 @@
+<div class="products-container">
+    <h1 class="products-title">RICE PRODUCTS</h1>
+    
+    <div *ngIf="isLoading" class="loading-message">
+        <p>Loading products...</p>
+    </div>
+    
+    <div *ngIf="hasError" class="error-message">
+        <h3>Error Loading Products</h3>
+        <p>{{errorMessage || 'Unknown error occurred'}}</p>
+        <p><strong>Please check:</strong></p>
+        <ul style="text-align: left; display: inline-block;">
+            <li>Backend server is running on http://localhost:8082</li>
+            <li>Database is configured correctly</li>
+            <li>Check browser console (F12) for more details</li>
+        </ul>
+    </div>
+    
+    <div *ngIf="!isLoading && !hasError && productsWithVariations.length === 0" class="no-products-message">
+        <p>No products found. Please check if the backend API is returning data.</p>
+    </div>
+    
+    <div class="products-grid" *ngIf="!isLoading && !hasError && productsWithVariations.length > 0">
+        <div class="product-card" *ngFor="let product of productsWithVariations; let i = index" [style.--index]="i">
+            <div class="product-image-container" *ngIf="product.imageFile">
+                <img [src]="getImageUrl(product.imageFile)" [alt]="product.name" class="product-image" 
+                     onerror="this.style.display='none'" />
+            </div>
+            <h3 class="product-name">{{product.name}}</h3>
+            <p class="product-description">{{product.description}}</p>
+            
+            <div class="variation-selector">
+                <label class="variation-label">Select Quantity:</label>
+                <select 
+                    class="variation-dropdown" 
+                    [(ngModel)]="selectedVariations[product.name]"
+                    [compareWith]="compareVariations">
+                    <option *ngFor="let variation of product.variations" [ngValue]="variation">
+                        {{variation.quantity}} - ₱{{variation.price}}
+                    </option>
+                </select>
+            </div>
+            
+            <div class="product-footer">
+                <button class="add-to-cart-btn" (click)="addToCart(product)">Add to Cart</button>
+                <p class="product-price" *ngIf="selectedVariations[product.name]">
+                    {{selectedVariations[product.name].quantity}} | ₱{{selectedVariations[product.name].price}}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

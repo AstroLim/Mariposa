@@ -1,0 +1,42 @@
+<div class="cart-modal-overlay" *ngIf="isOpen" (click)="onOverlayClick($event)">
+    <div class="cart-modal" (click)="$event.stopPropagation()">
+        <div class="cart-header">
+            <h2 class="cart-title">YOUR CART</h2>
+            <button class="close-btn" (click)="closeModal()">×</button>
+        </div>
+        
+        <div class="cart-body">
+            <div *ngIf="cartItems.length === 0" class="empty-cart">
+                <p>Your cart is empty</p>
+            </div>
+            
+            <div *ngFor="let item of cartItems; let i = index" class="cart-item" [style.--item-index]="i">
+                <button class="remove-btn" (click)="removeItem(item.product.id)" title="Remove">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z" fill="white"/>
+                    </svg>
+                </button>
+                <div class="item-details">
+                    <h3 class="item-name">{{item.product.name}}</h3>
+                    <p class="item-description">{{item.product.description}}</p>
+                    <div class="item-quantity">
+                        <span>Quantity:</span>
+                        <button class="quantity-btn" (click)="updateQuantity(item.product.id, -1)">−</button>
+                        <span class="quantity-value">{{item.quantity}}</span>
+                        <button class="quantity-btn" (click)="updateQuantity(item.product.id, 1)">+</button>
+                    </div>
+                    <p class="item-price">Price: Php. {{item.total.toFixed(2)}}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cart-footer" *ngIf="cartItems.length > 0">
+            <div class="cart-summary">
+                <p class="cart-total">Total: Php. {{total.toFixed(2)}}</p>
+                <p class="payment-mode">Mode of Payment: Cash On Delivery</p>
+            </div>
+            <button class="checkout-btn" (click)="checkout()">Checkout</button>
+        </div>
+    </div>
+</div>
+

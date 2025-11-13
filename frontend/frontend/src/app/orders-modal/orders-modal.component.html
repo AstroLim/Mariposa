@@ -1,0 +1,55 @@
+<div class="modal-overlay" *ngIf="isOpen" (click)="onOverlayClick($event)">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>My Orders</h2>
+      <button class="close-btn" (click)="closeModal()" type="button">&times;</button>
+    </div>
+    
+    <div class="modal-body">
+      <div *ngIf="isLoading" class="loading-message">
+        <p>Loading orders...</p>
+      </div>
+      
+      <div *ngIf="!isLoading && orders.length === 0" class="no-orders-message">
+        <p>No pending orders found.</p>
+      </div>
+      
+      <div *ngIf="!isLoading && orders.length > 0" class="orders-list">
+        <div *ngFor="let order of orders" class="order-item">
+          <div class="order-header">
+            <span class="order-id">Order #{{ order.checkoutID }}</span>
+            <span class="order-date" *ngIf="order.created">
+              {{ order.created | date:'short' }}
+            </span>
+          </div>
+          
+          <div class="order-items">
+            <p class="items-label">Items:</p>
+            <ul>
+              <li *ngFor="let item of getCheckoutedItemsList(order)">{{ item }}</li>
+            </ul>
+          </div>
+          
+          <div class="order-status">
+            <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+              {{ order.status }}
+            </span>
+          </div>
+          
+          <div class="order-actions" *ngIf="order.status === 'pending'">
+            <button class="action-btn received-btn" (click)="updateStatus(order.checkoutID, 'received')" type="button">
+              Mark as Received
+            </button>
+            <button class="action-btn not-received-btn" (click)="updateStatus(order.checkoutID, 'not_received')" type="button">
+              Not Received
+            </button>
+            <button class="action-btn cancelled-btn" (click)="updateStatus(order.checkoutID, 'cancelled')" type="button">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

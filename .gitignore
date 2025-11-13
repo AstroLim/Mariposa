@@ -1,0 +1,63 @@
+# Java/Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.mvn/
+mvnw
+mvnw.cmd
+
+# Node/Angular
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+.angular/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+ecommerce/db/
+*.dblwr
+#innodb_redo/
+#innodb_temp/
+*.ibd
+*.ibt
+ibdata1
+ibtmp1
+ib_buffer_pool
+undo_001
+undo_002
+auto.cnf
+binlog.*
+*.sock
+*.sdi
+*.CSM
+*.CSV
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Environment
+.env
+.env.local
+
+# Build artifacts
+*.log
+*.tmp
+
+
+

@@ -1,0 +1,115 @@
+.notification-container {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 2000;
+    animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 300px;
+    max-width: 400px;
+    animation: slideInRight 0.3s ease-out;
+}
+
+.notification-success {
+    border-left: 4px solid #2e7d32;
+}
+
+.notification-error {
+    border-left: 4px solid #d32f2f;
+}
+
+.notification-info {
+    border-left: 4px solid #5c9bd1;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.notification-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.notification-success .notification-icon {
+    color: #2e7d32;
+}
+
+.notification-error .notification-icon {
+    color: #d32f2f;
+}
+
+.notification-info .notification-icon {
+    color: #5c9bd1;
+}
+
+.notification-message {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    color: #424242;
+    font-weight: 500;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #757575;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 12px;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.notification-close:hover {
+    background-color: #f5f5f5;
+    color: #424242;
+    transform: rotate(90deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .notification-container {
+        right: 10px;
+        left: 10px;
+        top: 80px;
+    }
+    
+    .notification {
+        min-width: auto;
+        max-width: 100%;
+    }
+}
+
